@@ -73,11 +73,11 @@ main(){
     install_script_dependencies
     find_dependencies
     [[ -d $DIR ]] || mkdir $DIR
-	chown _apt $DIR
+    chown _apt $DIR
     cd $DIR
     download_dependencies
-	create_pkg_index
-	tarball_all_pkgs
-	verify_things
+    create_pkg_index
+    tarball_all_pkgs
+    verify_things
 }
 main

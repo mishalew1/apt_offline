@@ -8,7 +8,7 @@ Finaly compresses the entire directory into a pkg_index to be moved to anoher sy
 # Variables
 DIR=/tmp/deb_pkgs
 
-package_list=(vim curl htop git rsync terminator openssh-server openssh-client)
+package_list=($*)
 
 
 isRoot() {

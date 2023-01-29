@@ -49,14 +49,16 @@ download_dependencies(){
 
 
 create_pkg_index(){
-	pkg_index=$DIR/Packages.gz
-	dpkg-scanpackages $DIR  | gzip -c > $pkg_index
+	pkg_index=Packages.gz
+	dpkg-scanpackages . | gzip -c > $pkg_index
 }
 
 
 tarball_all_pkgs(){
-	tarball=/tmp/mydebs.tar.gz
-	tar -czvf $tarball $DIR
+	basename=${DIR##*/}
+	tarball=${basename}.tar.gz
+	cd ..
+	tar -czvf $tarball $basename
 }
 
 

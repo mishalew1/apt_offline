@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DIR=/tmp/mydebs
+DIR=/tmp/gitlab_pkgs
 PKG_URL=https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh
 
 
@@ -44,11 +44,35 @@ download_dependencies(){
 	total="${#dependency_list[@]}"
 	
 	for pkg in "${dependency_list[@]}"; do
-		echo -e "\n$pkg [$counter\\$total]"
-    	#apt-get download $pkg
-		((counter+1))
+		echo -e "[$counter/$total] $pkg"
+    	apt-get download $pkg
+		((counter++))
 	done
+
 }
+
+
+create_pkg_index(){
+	pkg_index=Packages.gz
+	dpkg-scanpackages . | gzip -c > $pkg_index
+}
+
+
+tarball_all_pkgs(){
+	basename=${DIR##*/}
+	tarball=${basename}.tar.gz
+	cd ..
+	tar -czvf $tarball $basename
+}
+
+
+verify_things(){
+	echo -e "\n${DIR} size: "
+	du -sh $DIR
+	echo -e "\n$tarball size: "
+	du -sh $tarball
+}
+
 
 
 main(){
@@ -60,5 +84,8 @@ main(){
 	chown _apt $DIR
     cd $DIR
     download_dependencies
+    create_pkg_index
+    tarball_all_pkgs
+    verify_things
 }
 main

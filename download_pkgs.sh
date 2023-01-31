@@ -28,9 +28,9 @@ install_script_dependencies(){
 find_dependencies(){
 	dependency_list=($(
 		apt-cache depends --recurse \
-    	    --no-recommends --no-suggests \
-         	--no-conflicts --no-breaks \
-      	    --no-replaces --no-enhances "${package_list[@]}"  \
+			--no-recommends --no-suggests \
+			--no-conflicts --no-breaks \
+			--no-replaces --no-enhances "${package_list[@]}"  \
 			|  grep "^\w"  |  sort -u ))
 }
 
@@ -41,7 +41,7 @@ download_dependencies(){
 	
 	for pkg in "${dependency_list[@]}"; do
 		echo -e "[$counter/$total] $pkg"
-    	apt-get download $pkg
+		apt-get download $pkg
 		((counter++))
 	done
 

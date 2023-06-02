@@ -8,8 +8,8 @@ package_list=(gitlab-ce curl openssh-server ca-certificates tzdata perl)
 
 
 isRoot() {
-	if [ "$EUID" -ne 0 ]; then
-		echo "Has to be run as root"
+    if [ "$EUID" -ne 0 ]; then
+        echo "Has to be run as root"
 		exit 1
 	fi
 }
